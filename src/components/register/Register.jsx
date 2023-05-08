@@ -36,8 +36,6 @@ export default function Register() {
         const file = evt.target.files
         const data = new FormData()
 
-        console.log(file);
-
         data.append("file", file[0] )
         data.append("upload_preset", "lamasocial")
 
@@ -66,8 +64,6 @@ export default function Register() {
         const file = evt.target.files
         const data = new FormData()
 
-        console.log(file);
-
         data.append("file", file[0] )
         data.append("upload_preset", "lamasocial")
 
@@ -87,8 +83,7 @@ export default function Register() {
            setBtnActive(false);
            setLoading(false);
 
-    }
-      
+    }   
        
     
     const handleFormSubmit = (evt)=>{
@@ -115,10 +110,9 @@ export default function Register() {
             }
             return Promise.reject(res)
         }).then((data)=>{
-            alert(data)
+            console.log(data);
             navigate("/login")
-        }).catch(()=>
-        alert("Something went wrong"))
+        })
     }
 
 
@@ -145,15 +139,15 @@ export default function Register() {
                     <div className="upload-main-wrapper">
                     <span className="upload-avatar-wrapper">
                     <PermMedia htmlColor="tomato" className="shareIcon" />
-                    <button  data-toggle="modal" data-target="#avatarModal">
+                    <div type="click" className="upload-button"  data-toggle="modal" data-target="#avatarModal">
                     Upload avatar
-                    </button>
+                    </div>
                     </span>
                     <span className="upload-avatar-wrapper">
                     <PermMedia htmlColor="orange" className="shareIcon" />
-                    <button data-toggle="modal" data-target="#coverModal">
+                    <div className="upload-button" data-toggle="modal" data-target="#coverModal">
                     Upload cover image
-                    </button>
+                    </div>
                     </span>
                     </div>
 {/* modal for avatar*/}
@@ -164,7 +158,7 @@ export default function Register() {
       <div className="modal-content">
         <div className="modal-header">
           {/* <button type="button" className="close" data-dismiss="modal">&times;</button> */}
-          <h4 className="modal-title"></h4>
+          <h4 className="modal-title">1</h4>
         </div>
         <div className="modal-body">
           <p>Please upload your file here</p>
@@ -193,7 +187,7 @@ export default function Register() {
       <div className="modal-content">
         <div className="modal-header">
           {/* <button type="button" className="close" data-dismiss="modal">&times;</button> */}
-          <h4 className="modal-title"></h4>
+          <h4 className="modal-title">1</h4>
         </div>
         <div className="modal-body">
           <p>Please upload your file here</p>
@@ -214,7 +208,7 @@ export default function Register() {
     </div>
   </div>
                   
-                    <button className="loginButton">Sign Up</button>
+                    <button type="submit" className="loginButton">Sign Up</button>
                 
                     <Link to={"/login"} className="loginRegisterButton">Log into Account</Link>
 

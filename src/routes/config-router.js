@@ -6,16 +6,16 @@ import Profile from "../pages/Profile/Profile";
 
 const routes = [
   {
+    path: "/",
+    element: <Home />,
+  },
+  {
     path: "registration",
     element: <Register />,
   },
   {
     path: "login",
     element: <Login />,
-  },
-  {
-    path: "main",
-    element: <Home />,
   },
   {
     path: "profile",
