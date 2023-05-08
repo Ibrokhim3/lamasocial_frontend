@@ -83,4 +83,47 @@
     cursor: pointer;
 
 
+
+
 }
+
+.upload-avatar-wrapper{
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+}
+
+.upload-main-wrapper{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+.input-spinner-wrapper{
+    display: flex;
+    align-items: center;
+}
+
+
+/* spinner */
+
+@keyframes spinner {
+    to {transform: rotate(360deg);}
+  }
+   
+  .spinner:before {
+    content: '';
+    box-sizing: border-box;
+    position: absolute;
+    /* top: 50%;
+    left: 50%; */
+    width: 20px;
+    height: 20px;
+    margin-top: -10px;
+    margin-left: -10px;
+    border-radius: 50%;
+    border: 2px solid #ccc;
+    border-top-color: #000;
+    animation: spinner .6s linear infinite;
+  }
