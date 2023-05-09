@@ -95,3 +95,18 @@
     object-fit: cover;
     cursor: pointer;
 }
+
+.update-button{
+    cursor: pointer;
+    background-color: cadetblue;
+    border-radius: 5px;
+    font-size: 12px;
+   
+}
+
+.logout{
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+
+}

@@ -3,7 +3,7 @@ import { useRef, useState } from "react";
 
 import "./Share.css";
 
-export default function Share() {
+export default function Share({ avatar_url }) {
   const [fileUrl, setFileUrl] = useState("");
   const [isDisabledInput, setIsDisabledInput] = useState(false);
   const [isDisabledUpload, setIsDisabledUpload] = useState(true);
@@ -68,11 +68,7 @@ export default function Share() {
     <div className="share">
       <div className="shareWrapper">
         <div className="shareTop">
-          <img
-            className="shareProfileImg"
-            src="/assets/person/1.png"
-            alt="smt"
-          />
+          <img className="shareProfileImg" src={avatar_url} alt="smt" />
           <input placeholder="What is in your mind" className="shareInput" />
         </div>
         <hr className="shareHr" />

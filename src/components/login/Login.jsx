@@ -34,7 +34,7 @@ let token = ""
             alert(data.msg)
              token = data.token
     localStorage.setItem("token", token)
-            navigate("/main")
+            navigate("/")
         }).catch((err)=>{
             alert("Something went wrong")
         })
