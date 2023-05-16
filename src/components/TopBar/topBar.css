@@ -110,3 +110,21 @@
     cursor: pointer;
 
 }
+
+.input-file-wrapper{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.input-file-wrapper__text{
+    width: 135px;
+    margin-right: 20px;
+}
+
+.modal__button-wrapper{
+display: flex;
+justify-content: center;
+align-items: center;
+gap: 20px;
+}
