@@ -74,6 +74,9 @@
 
 .loginRegisterButton{
     width: 60%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     align-self: center;
     height: 60px;
     border-radius: 10px;
@@ -108,6 +111,9 @@
 .upload-button{
     cursor: pointer;
     margin-bottom: 15px;
+    background: transparent;
+    outline: none;
+    border: none;
 }
 
 

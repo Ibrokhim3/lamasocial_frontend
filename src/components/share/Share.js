@@ -1,10 +1,11 @@
 import { PermMedia, Label, Room, EmojiEmotions } from "@mui/icons-material";
 import { useRef, useState } from "react";
+import profileImgDef from "../../assets/icons/avatar.svg";
 
-import "./Share.css";
+import "./share.css";
 
-export default function Share({ avatar_url }) {
-  const [fileUrl, setFileUrl] = useState("");
+export default function Share({ profileImgUrl }) {
+  const [postImg, setPostImg] = useState();
   const [isDisabledInput, setIsDisabledInput] = useState(false);
   const [isDisabledUpload, setIsDisabledUpload] = useState(true);
   const [btnActive, setBtnActive] = useState(true);
@@ -14,39 +15,20 @@ export default function Share({ avatar_url }) {
     backgroundColor: btnActive ? "red" : "blue",
   };
 
-  const uploadImage = async (evt) => {
-    setIsDisabledInput(true);
-    setLoading(true);
-
-    const file = evt.target.files;
-    const data = new FormData();
-
-    data.append("file", file[0]);
-    data.append("upload_preset", "lamasocial");
-
-    const res = await fetch(
-      "https://api.cloudinary.com/v1_1/dephdgqpo/image/upload",
-      {
-        method: "POST",
-        body: data,
-      }
-    );
-
-    const data2 = await res.json();
-
-    setFileUrl(data2.secure_url);
-    setIsDisabledUpload(false);
-    setBtnActive(false);
-    setLoading(false);
-  };
-
-  const handleBtnSubmit = (evt) => {
+  const handleFormSubmit = (evt) => {
     evt.preventDefault();
+
+    const postText = evt.target.sharePostText.value;
+
+    const formData = new FormData();
+
+    formData.append("postText", postText);
+    formData.append("postImg", postImg);
 
     fetch("http://localhost:1200/lamasocial/create_post", {
       method: "POST",
-      headers: { "Content-type": "Application/json" },
-      body: JSON.stringify({ post_url: fileUrl }),
+      body: formData,
+      headers: { token: localStorage.getItem("token") },
     })
       .then((res) => {
         if (res.status === 201) {
@@ -61,15 +43,23 @@ export default function Share({ avatar_url }) {
         return console.log(err);
       });
     evt.target.value = null;
-    setIsDisabledInput(false);
   };
 
   return (
-    <div className="share">
+    <form onSubmit={handleFormSubmit} className="share">
       <div className="shareWrapper">
         <div className="shareTop">
-          <img className="shareProfileImg" src={avatar_url} alt="smt" />
-          <input placeholder="What is in your mind" className="shareInput" />
+          <img
+            className="shareProfileImg"
+            src={profileImgUrl || profileImgDef}
+            alt="smt"
+          />
+
+          <input
+            id="sharePostText"
+            placeholder="What is in your mind"
+            className="shareInput"
+          />
         </div>
         <hr className="shareHr" />
         <div className="shareBottom">
@@ -95,7 +85,9 @@ export default function Share({ avatar_url }) {
               <span className="shareOptionText">Feelings</span>
             </div>
           </div>
-          <button className="shareButton">Share</button>
+          <button type="submit" className="shareButton">
+            Share
+          </button>
         </div>
       </div>
       <div className="modal fade" id="uploadModal" role="dialog">
@@ -109,23 +101,17 @@ export default function Share({ avatar_url }) {
               <p>Please upload your file here</p>
               <div className="input-spinner-wrapper">
                 <input
-                  disabled={isDisabledInput}
-                  onChange={(evt) => uploadImage(evt)}
+                  onChange={(e) => {
+                    setPostImg(e.target.files[0]);
+                  }}
                   type="file"
                   accept="image/*"
                 />
-                <span
-                  style={loading ? { display: "block" } : { display: "none" }}
-                  className="spinner"
-                ></span>
               </div>
             </div>
             <div className="modal-footer">
               <button
-                onClick={handleBtnSubmit}
-                disabled={isDisabledUpload}
-                style={{ styles }}
-                type="click"
+                type="button"
                 className="btn btn-default"
                 data-dismiss="modal"
               >
@@ -135,6 +121,6 @@ export default function Share({ avatar_url }) {
           </div>
         </div>
       </div>
-    </div>
+    </form>
   );
 }

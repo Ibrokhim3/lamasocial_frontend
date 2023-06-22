@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import Feed from "../../components/Feed/Feed";
-import RightBar from "../../components/rightbar/RightBar";
-import Share from "../../components/share/Share";
-import SideBar from "../../components/sidebar/sideBar";
-import TopBar from "../../components/TopBar/TopBar";
+import Feed from "../../components/feed/feed";
+import RightBar from "../../components/right-bar/right-bar";
+import Share from "../../components/share/share";
+import SideBar from "../../components/sidebar/sidebar";
+import TopBar from "../../components/top-bar/top-bar";
 import "./home.css";
 
 function Home() {
@@ -35,14 +35,14 @@ function Home() {
     dataFetch();
   }, [posts]);
 
-  const avatar_url = posts?.user[0]?.avatar_url;
+  const profileImgUrl = posts?.profile_img_url;
 
   return (
     <>
-      <TopBar avatar_url={avatar_url} />
+      <TopBar profileImgUrl={profileImgUrl} />
       <div className="homeContainer">
         <SideBar />
-        <Feed avatar_url={avatar_url} posts={posts} />
+        <Feed profileImgUrl={profileImgUrl} posts={posts} />
         <RightBar posts={posts} />
       </div>
     </>

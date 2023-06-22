@@ -1,9 +1,10 @@
-import "./topBar.css";
+import "./top-bar.css";
 import { Search, Person, Chat, Notifications } from "@mui/icons-material";
 import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
+import profileImgDef from "../../assets/icons/avatar.svg";
 
-function TopBar({ avatar_url }) {
+function TopBar({ profileImgUrl }) {
   const [avatarUrl, setAvatarUrl] = useState("");
   const [coverUrl, setCoverUrl] = useState("");
   const [IsDisabledAvatarInput, setIsDisabledAvatarInput] = useState(false);
@@ -302,7 +303,13 @@ function TopBar({ avatar_url }) {
             Log out
           </button>
           <Link to={"/profile"}>
-            <img src={avatar_url} alt="smt" className="topbarImg" />
+            <img
+              src={profileImgUrl || profileImgDef}
+              alt="smt"
+              width={32}
+              height={32}
+              className="topbarImg"
+            />
           </Link>
         </div>
         {/* Modal for update user */}

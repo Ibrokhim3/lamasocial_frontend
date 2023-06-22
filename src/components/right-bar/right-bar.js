@@ -1,8 +1,8 @@
-import "./rightBar.css";
+import "./right-bar.css";
 import { Users } from "../../data/data";
-import Online from "../online/Online";
+import Online from "../online/online";
 import { useEffect, useState } from "react";
-import CloseFriend from "../closeFriend/CloseFriend";
+import CloseFriend from "../close-friends/close-friends";
 
 function RightBar({ profile }) {
   const [friends, setFriends] = useState();

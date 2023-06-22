@@ -1,10 +1,10 @@
-import "./Feed.css";
-import Share from "../share/Share";
-import Post from "../post/Post";
+import "./feed.css";
+import Share from "../share/share";
+import Post from "../post/post";
 import { useEffect } from "react";
 import { useState } from "react";
 
-function Feed({ posts, avatar_url }) {
+function Feed({ posts, profileImgUrl }) {
   // const [posts, setPosts] = useState();
 
   // // useEffect(() => {
@@ -33,7 +33,7 @@ function Feed({ posts, avatar_url }) {
   return (
     <div className="feed">
       <div className="feedWrapper">
-        <Share avatar_url={avatar_url} />
+        <Share profileImgUrl={profileImgUrl} />
 
         {posts?.posts.map((post, index) => (
           <Post key={index} post={post} />

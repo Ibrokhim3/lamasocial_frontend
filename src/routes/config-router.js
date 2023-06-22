@@ -1,8 +1,8 @@
-import Home from "../pages/home/Home";
-import Login from "../components/login/Login";
-import Register from "../components/register/Register";
+import Home from "../pages/home/home";
+import Login from "../components/login/login";
+import Register from "../components/register/register";
 import { useRoutes } from "react-router";
-import Profile from "../pages/Profile/Profile";
+import Profile from "../pages/profile/profile";
 import { useEffect, useState } from "react";
 
 const routes = [

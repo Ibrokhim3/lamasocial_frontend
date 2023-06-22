@@ -1,4 +1,4 @@
-import "./sideBar.css";
+import "./sidebar.css";
 import {
   RssFeed,
   Bookmark,
@@ -11,7 +11,7 @@ import {
   Chat,
 } from "@mui/icons-material";
 import { Users } from "../../data/data";
-import CloseFriend from "../closeFriend/CloseFriend";
+import CloseFriend from "../close-friends/close-friends";
 import { useEffect, useState } from "react";
 
 function SideBar() {
