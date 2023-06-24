@@ -55,7 +55,6 @@ function RightBar({ profile }) {
   };
 
   const ProfileRightbar = () => {
-    console.log(friends);
     return (
       <>
         <h4 className="rightbarTitle">User information</h4>

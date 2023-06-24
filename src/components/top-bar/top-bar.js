@@ -30,7 +30,7 @@ function TopBar({ profileImgUrl }) {
 
   useEffect(() => {
     const dataFetch = async () => {
-      await fetch("http://localhost:1200/lamasocial/user_info", {
+      await fetch("http://localhost:1200/lamasocial/user-info", {
         method: "GET",
         headers: { token },
       })

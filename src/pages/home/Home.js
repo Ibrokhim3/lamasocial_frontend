@@ -8,6 +8,7 @@ import "./home.css";
 
 function Home() {
   const [posts, setPosts] = useState();
+  const [userPosts, setUserPosts] = useState();
 
   const token = localStorage.getItem("token");
 
@@ -35,14 +36,38 @@ function Home() {
     dataFetch();
   }, [posts]);
 
-  const profileImgUrl = posts?.profile_img_url;
+  useEffect(() => {
+    const dataFetch = async () => {
+      await fetch("http://localhost:1200/lamasocial/user-info", {
+        method: "GET",
+        headers: { token },
+      })
+        .then((res) => {
+          if (res.status === 200) {
+            return res.json();
+          }
+          return Promise.reject(res);
+        })
+        .then((data) => {
+          if (data) {
+            setUserPosts(data);
+          }
+        })
+        .catch((err) => {
+          alert(err);
+        });
+    };
+    dataFetch();
+  }, []);
+
+  // const profileImgUrl = posts?.posts?.map((item) => item.profile_img_url);
 
   return (
     <>
-      <TopBar profileImgUrl={profileImgUrl} />
+      <TopBar profileImgUrl={userPosts?.profile_img_url} />
       <div className="homeContainer">
         <SideBar />
-        <Feed profileImgUrl={profileImgUrl} posts={posts} />
+        <Feed profileImgUrl={userPosts?.profile_img_url} posts={posts} />
         <RightBar posts={posts} />
       </div>
     </>

@@ -12,6 +12,7 @@ export default function Post({
     username,
     post_id,
     likes,
+    post_text,
     user_id,
   },
 }) {
@@ -61,6 +62,7 @@ export default function Post({
             <img src={profile_img_url} className="postProfileImg" alt="" />
             <span className="postUsername">{username}</span>
             <span className="postDate">{moment(uploaded_time).fromNow()}</span>
+            <p className="postText">{post_text}</p>
           </div>
           <div className="postTopRight">
             <MoreVert />
