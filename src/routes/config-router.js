@@ -5,6 +5,8 @@ import { useRoutes } from "react-router";
 import Profile from "../pages/profile/profile";
 import { useEffect, useState } from "react";
 
+const token = localStorage.getItem("token");
+
 const routes = [
   {
     path: "/",

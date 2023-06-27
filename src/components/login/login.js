@@ -1,18 +1,23 @@
 import { Link } from "react-router-dom";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router";
 import "./login.css";
 
 export default function Login() {
-  let token = "";
-
   const navigate = useNavigate();
+
+  const [btnActive, setBtnActive] = useState(false);
+
+  const styles = {
+    opacity: btnActive ? 0.7 : 1,
+  };
 
   const emailRef = useRef();
   const passwordRef = useRef();
 
   const handleFormSubmit = (evt) => {
     evt.preventDefault();
+    setBtnActive(true);
 
     const user = {
       userEmail: emailRef.current.value,
@@ -65,7 +70,12 @@ export default function Login() {
               placeholder=" Password... "
               className="loginInput"
             />
-            <button type="submit" className="loginButton">
+            <button
+              disabled={btnActive}
+              style={styles}
+              type="submit"
+              className="loginButton"
+            >
               Log In
             </button>
             <span className="loginForgot">Forgot password</span>

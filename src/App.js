@@ -2,10 +2,10 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { Navigate, useNavigate } from "react-router";
 import { Routes } from "../src/routes/config-router";
+import Login from "./components/login/login";
 
 function App() {
   const [login, setLogin] = useState();
-  const navigate = useNavigate();
 
   let hours = 5;
   let now = new Date().getTime();
@@ -16,13 +16,13 @@ function App() {
     if (now - setupTime > hours * 60 * 60 * 1000) {
       localStorage.clear();
       localStorage.setItem("setupTime", now);
-      navigate("/");
     }
   }
 
   useEffect(() => {
     setLogin(localStorage.getItem("token"));
   }, []);
+
   return <Routes login={login} />;
 }
 

@@ -4,18 +4,14 @@ import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
 import profileImgDef from "../../assets/icons/avatar.svg";
 
-function TopBar({ profileImgUrl }) {
-  const [avatarUrl, setAvatarUrl] = useState("");
-  const [coverUrl, setCoverUrl] = useState("");
-  const [IsDisabledAvatarInput, setIsDisabledAvatarInput] = useState(false);
-  const [IsDisabledCoverInput, setIsDisabledCoverInput] = useState(false);
-  const [isDisabledUpload, setIsDisabledUpload] = useState(true);
+function TopBar({ profileImgUrl, profile }) {
+  const [profileImg, setProfileImg] = useState();
+  const [coverImg, setCoverImg] = useState();
   const [btnActive, setBtnActive] = useState(false);
-  const [loadingAvatar, setLoadingAvatar] = useState(false);
-  const [loadingCover, setLoadingCover] = useState(false);
+  const [modalHide, setModalHide] = useState(false);
 
   const styles = {
-    backgroundColor: btnActive ? "red" : "blue",
+    opacity: btnActive ? 0.7 : 1,
   };
 
   const navigate = useNavigate();
@@ -25,7 +21,6 @@ function TopBar({ profileImgUrl }) {
   const usernameRef = useRef();
 
   const token = localStorage.getItem("token");
-
   const [user, setUser] = useState({ username: "", user_email: "" });
 
   useEffect(() => {
@@ -52,85 +47,43 @@ function TopBar({ profileImgUrl }) {
     dataFetch();
   }, []);
 
-  const uploadAvatar = async (evt) => {
-    setBtnActive(true);
-    setIsDisabledAvatarInput(true);
-    setLoadingAvatar(true);
-
-    const file = evt.target.files;
-    const data = new FormData();
-
-    data.append("file", file[0]);
-    data.append("upload_preset", "lamasocial");
-
-    const res = await fetch(
-      "https://api.cloudinary.com/v1_1/dephdgqpo/image/upload",
-      {
-        method: "POST",
-        body: data,
-      }
-    );
-
-    const data2 = await res.json();
-
-    setAvatarUrl(data2.secure_url);
-    setIsDisabledUpload(false);
-    setBtnActive(false);
-    setLoadingAvatar(false);
-  };
-
-  const uploadCover = async (evt) => {
-    setBtnActive(true);
-    setIsDisabledCoverInput(true);
-    setLoadingCover(true);
-
-    const file = evt.target.files;
-    const data = new FormData();
-
-    data.append("file", file[0]);
-    data.append("upload_preset", "lamasocial");
-
-    const res = await fetch(
-      "https://api.cloudinary.com/v1_1/dephdgqpo/image/upload",
-      {
-        method: "POST",
-        body: data,
-      }
-    );
-
-    const data2 = await res.json();
-
-    setCoverUrl(data2.secure_url);
-    setIsDisabledUpload(false);
-    setBtnActive(false);
-    setLoadingCover(false);
-  };
-
   const handleFormSubmit = (evt) => {
     evt.preventDefault();
+    setBtnActive(true);
 
-    const user = {
-      username: usernameRef.current.value,
-      user_email: emailRef.current.value,
-      password: passwordRef.current.value,
-      avatar_url: avatarUrl,
-      cover_url: coverUrl,
-    };
+    const formData = new FormData();
 
-    fetch("http://localhost:1200/lamasocial/update_user", {
+    formData.append("userName", usernameRef.current.value);
+    formData.append("userEmail", emailRef.current.value);
+    formData.append("password", passwordRef.current.value);
+    formData.append("profileImg", profileImg);
+    formData.append("coverImg", coverImg);
+
+    // const user = {
+    //   username: usernameRef.current.value,
+    //   user_email: emailRef.current.value,
+    //   password: passwordRef.current.value,
+    //   avatar_url: avatarUrl,
+    //   cover_url: coverUrl,
+    // };
+
+    fetch("http://localhost:1200/lamasocial/update-user", {
       method: "PUT",
-      headers: { "Content-type": "Application/json", token },
-      body: JSON.stringify(user),
+      headers: { token },
+      body: formData,
     })
       .then((res) => {
-        if (res.status === 200) {
-          return res.json();
+        if (res.status !== 200) {
+          return res.text().then((text) => {
+            throw new Error(text);
+          });
         }
-        return Promise.reject(res);
+        return res.json();
       })
       .then((data) => {
         alert(data);
-        localStorage.setItem("token", "");
+        localStorage.clear();
+        setModalHide(true);
         navigate("/login");
       })
       .catch((err) => {
@@ -141,7 +94,7 @@ function TopBar({ profileImgUrl }) {
   return (
     <>
       <div
-        className="modal fade"
+        className={`modal fade${modalHide && " modal-hide"}`}
         id="updateUser"
         tabIndex="-1"
         role="dialog"
@@ -199,33 +152,18 @@ function TopBar({ profileImgUrl }) {
                     Upload your avatar here
                   </span>
                   <input
-                    onChange={uploadAvatar}
-                    disabled={IsDisabledAvatarInput}
+                    onChange={(e) => setProfileImg(e.target.files[0])}
                     type="file"
                   />
-                  <span
-                    style={
-                      loadingAvatar ? { display: "block" } : { display: "none" }
-                    }
-                    className="spinner"
-                  ></span>
                 </div>
-
                 <div className="input-file-wrapper">
                   <span className="input-file-wrapper__text">
                     Upload your cover-image here
                   </span>
                   <input
-                    disabled={IsDisabledCoverInput}
-                    onChange={uploadCover}
+                    onChange={(e) => setCoverImg(e.target.files[0])}
                     type="file"
                   />
-                  <span
-                    style={
-                      loadingCover ? { display: "block" } : { display: "none" }
-                    }
-                    className="spinner"
-                  ></span>
                 </div>
 
                 <div className="modal__button-wrapper">
@@ -237,6 +175,7 @@ function TopBar({ profileImgUrl }) {
                     Close
                   </button>
                   <button
+                    style={styles}
                     disabled={btnActive}
                     type="submit"
                     data-mdb-dismiss="modal"
@@ -285,17 +224,19 @@ function TopBar({ profileImgUrl }) {
               <span className="topbarIconBadge">1</span>
             </div>
           </div>
-          <button
-            type="button"
-            className="btn btn-primary"
-            data-toggle="modal"
-            data-target="#updateUser"
-          >
-            Update User
-          </button>
+          {profile && (
+            <button
+              type="button"
+              className="btn btn-primary"
+              data-toggle="modal"
+              data-target="#updateUser"
+            >
+              Update User
+            </button>
+          )}
           <button
             onClick={() => {
-              localStorage.setItem("token", "");
+              localStorage.clear();
               navigate("/login");
             }}
             className="logout"

@@ -7,10 +7,11 @@ import { PermMedia } from "@mui/icons-material";
 export default function Register() {
   const [profileImg, setProfileImg] = useState();
   const [coverImg, setCoverImg] = useState();
+  const [btnActive, setBtnActive] = useState(false);
 
-  // const styles = {
-  //   backgroundColor: btnActive ? "red" : "blue",
-  // };
+  const styles = {
+    opacity: btnActive ? 0.7 : 1,
+  };
 
   const navigate = useNavigate();
 
@@ -33,6 +34,7 @@ export default function Register() {
 
   const handleFormSubmit = (evt) => {
     evt.preventDefault();
+    setBtnActive(true);
 
     const formData = new FormData();
 
@@ -40,7 +42,7 @@ export default function Register() {
     formData.append("userEmail", emailRef.current.value);
     formData.append("password", passwordRef.current.value);
     formData.append("password2", password2Ref.current.value);
-    formData.append("profileImg", profileImg );
+    formData.append("profileImg", profileImg);
     formData.append("coverImg", coverImg);
 
     fetch("http://localhost:1200/lamasocial/registration", {
@@ -126,7 +128,12 @@ export default function Register() {
                 </span>
               </div>
 
-              <button type="submit" className="loginButton">
+              <button
+                disabled={btnActive}
+                style={styles}
+                type="submit"
+                className="loginButton"
+              >
                 Sign Up
               </button>
 

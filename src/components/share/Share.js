@@ -8,16 +8,16 @@ export default function Share({ profileImgUrl }) {
   const [postImg, setPostImg] = useState();
   const [isDisabledInput, setIsDisabledInput] = useState(false);
   const [isDisabledUpload, setIsDisabledUpload] = useState(true);
-  const [btnActive, setBtnActive] = useState(true);
+  const [btnActive, setBtnActive] = useState(false);
   const [loading, setLoading] = useState(false);
 
   const styles = {
-    backgroundColor: btnActive ? "red" : "blue",
+    opacity: btnActive ? 0.5 : 1,
   };
 
   const handleFormSubmit = (evt) => {
     evt.preventDefault();
-
+    setBtnActive(true);
     const postText = evt.target.sharePostText.value;
 
     const formData = new FormData();
@@ -25,23 +25,26 @@ export default function Share({ profileImgUrl }) {
     formData.append("postText", postText);
     formData.append("postImg", postImg);
 
-    fetch("http://localhost:1200/lamasocial/create_post", {
+    fetch("http://localhost:1200/lamasocial/create-post", {
       method: "POST",
       body: formData,
       headers: { token: localStorage.getItem("token") },
     })
       .then((res) => {
-        if (res.status === 201) {
-          return res.json();
+        if (res.status !== 201) {
+          return res.text().then((text) => {
+            throw new Error(text);
+          });
         }
-        return Promise.reject(res);
+        return res.json();
       })
       .then((data) => {
-        console.log(data);
+        alert(data);
       })
       .catch((err) => {
-        return console.log(err);
-      });
+        alert(err);
+      })
+      .finally(() => setBtnActive(false));
     evt.target.value = null;
   };
 
@@ -85,7 +88,12 @@ export default function Share({ profileImgUrl }) {
               <span className="shareOptionText">Feelings</span>
             </div>
           </div>
-          <button type="submit" className="shareButton">
+          <button
+            disabled={btnActive}
+            style={styles}
+            type="submit"
+            className="shareButton"
+          >
             Share
           </button>
         </div>
@@ -111,6 +119,8 @@ export default function Share({ profileImgUrl }) {
             </div>
             <div className="modal-footer">
               <button
+                disabled={btnActive}
+                style={styles}
                 type="button"
                 className="btn btn-default"
                 data-dismiss="modal"

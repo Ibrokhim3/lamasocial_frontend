@@ -3,6 +3,7 @@ import { MoreVert } from "@mui/icons-material";
 import { Users } from "../../data/data";
 import "./post.css";
 import moment from "moment";
+import profileImgDef from "../../assets/icons/avatar.svg";
 
 export default function Post({
   post: {
@@ -59,7 +60,11 @@ export default function Post({
       <div className="postWrapper">
         <div className="postTop">
           <div className="postTopLeft">
-            <img src={profile_img_url} className="postProfileImg" alt="" />
+            <img
+              src={profile_img_url || profileImgDef}
+              className="postProfileImg"
+              alt=""
+            />
             <span className="postUsername">{username}</span>
             <span className="postDate">{moment(uploaded_time).fromNow()}</span>
             <p className="postText">{post_text}</p>

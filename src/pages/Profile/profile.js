@@ -66,7 +66,7 @@ export default function Profile() {
   return (
     <div>
       <div>
-        <TopBar profileImgUrl={user?.profile_img_url} />
+        <TopBar profile={true} profileImgUrl={user?.profile_img_url} />
         <div className="profile">
           <SideBar />
           <div className="profileRight">

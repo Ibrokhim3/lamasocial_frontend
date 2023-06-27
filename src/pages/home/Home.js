@@ -19,10 +19,12 @@ function Home() {
         headers: { token },
       })
         .then((res) => {
-          if (res.status === 200) {
-            return res.json();
+          if (res.status !== 200) {
+            return res.text().then((text) => {
+              throw new Error(text);
+            });
           }
-          return Promise.reject(res);
+          return res.json();
         })
         .then((data) => {
           if (data) {
@@ -30,7 +32,8 @@ function Home() {
           }
         })
         .catch((err) => {
-          return console.log(err);
+          alert(err);
+          // window.location.reload(true);
         });
     };
     dataFetch();
@@ -43,10 +46,12 @@ function Home() {
         headers: { token },
       })
         .then((res) => {
-          if (res.status === 200) {
-            return res.json();
+          if (res.status !== 200) {
+            return res.text().then((text) => {
+              throw new Error(text);
+            });
           }
-          return Promise.reject(res);
+          return res.json();
         })
         .then((data) => {
           if (data) {
