@@ -63,6 +63,9 @@ export default function Register() {
       })
       .catch((err) => {
         alert(err);
+      })
+      .finally(() => {
+        setBtnActive(false);
       });
   };
 

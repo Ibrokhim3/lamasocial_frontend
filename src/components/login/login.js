@@ -40,10 +40,14 @@ export default function Login() {
       .then((data) => {
         localStorage.setItem("token", data.token);
         alert(data.msg);
+        // window.location.reload();
         navigate("/");
       })
       .catch((err) => {
         alert(err);
+      })
+      .finally(() => {
+        setBtnActive(false);
       });
   };
 

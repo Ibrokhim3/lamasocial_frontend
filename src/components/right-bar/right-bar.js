@@ -31,7 +31,7 @@ function RightBar({ profile }) {
         });
     };
     dataFetch();
-  }, []);
+  }, [friends]);
 
   const HomeRightbar = () => {
     return (
@@ -46,8 +46,8 @@ function RightBar({ profile }) {
         <img className="rightBarAd" src="/assets/post/1.jpeg" />
         <h4 className="rightBarTitle"> Online friends </h4>
         <ul className="rightBarFriendList">
-          {Users.map((u) => (
-            <Online key={u.id} user={u} />
+          {friends?.map((user, index) => (
+            <Online key={index} user={user} />
           ))}
         </ul>
       </>

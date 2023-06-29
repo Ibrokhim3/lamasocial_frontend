@@ -6,6 +6,7 @@ import Login from "./components/login/login";
 
 function App() {
   const [login, setLogin] = useState();
+  const navigate = useNavigate();
 
   let hours = 5;
   let now = new Date().getTime();
@@ -16,6 +17,7 @@ function App() {
     if (now - setupTime > hours * 60 * 60 * 1000) {
       localStorage.clear();
       localStorage.setItem("setupTime", now);
+      navigate("/");
     }
   }
 
@@ -25,5 +27,4 @@ function App() {
 
   return <Routes login={login} />;
 }
-
 export default App;

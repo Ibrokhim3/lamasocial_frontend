@@ -12,6 +12,48 @@ function Home() {
 
   const token = localStorage.getItem("token");
 
+  const [isOnline, setIsOnline] = useState(navigator.onLine);
+
+  useEffect(() => {
+    function onlineHandler() {
+      setIsOnline(true);
+    }
+
+    function offlineHandler() {
+      setIsOnline(false);
+    }
+
+    window.addEventListener("online", onlineHandler);
+    window.addEventListener("offline", offlineHandler);
+
+    return () => {
+      window.removeEventListener("online", onlineHandler);
+      window.removeEventListener("offline", offlineHandler);
+    };
+  }, []);
+
+  useEffect(() => {
+    fetch("http://localhost:1200/lamasocial/online", {
+      method: "PUT",
+      headers: { "Content-type": "Application/json", token },
+      body: JSON.stringify({ isOnline }),
+    })
+      .then((res) => {
+        if (res.status !== 201) {
+          return res.text().then((text) => {
+            throw new Error(text);
+          });
+        }
+        return res.json();
+      })
+      .then((data) => {
+        // console.log(data);
+      })
+      .catch((err) => {
+        // return alert(err);
+      });
+  }, [isOnline]);
+
   useEffect(() => {
     const dataFetch = async () => {
       await fetch("http://localhost:1200/lamasocial/posts", {
@@ -32,7 +74,7 @@ function Home() {
           }
         })
         .catch((err) => {
-          alert(err);
+          // return alert(err);
           // window.location.reload(true);
         });
     };
@@ -59,7 +101,7 @@ function Home() {
           }
         })
         .catch((err) => {
-          alert(err);
+          return alert(err);
         });
     };
     dataFetch();
