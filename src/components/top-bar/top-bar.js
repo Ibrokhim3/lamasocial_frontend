@@ -207,7 +207,9 @@ function TopBar({ profileImgUrl, profile }) {
         </div>
         <div className="topbarRight">
           <div className="topbarLinks">
-            <span className="topbarLink">Homepage</span>
+            <Link to={"/"} className="topbarLink">
+              <span className="topbarLink">Homepage</span>
+            </Link>
             <span className="topbarLink">Timeline</span>
           </div>
           <div className="topbarIcons">

@@ -1,9 +1,9 @@
 import { Link } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router";
-import "./login.css";
+import "../login/login.css";
 
-export default function Login() {
+export default function PassResetLink() {
   const navigate = useNavigate();
 
   const [btnActive, setBtnActive] = useState(false);
@@ -13,7 +13,6 @@ export default function Login() {
   };
 
   const emailRef = useRef();
-  const passwordRef = useRef();
 
   const handleFormSubmit = (evt) => {
     evt.preventDefault();
@@ -21,10 +20,9 @@ export default function Login() {
 
     const user = {
       userEmail: emailRef.current.value,
-      password: passwordRef.current.value,
     };
 
-    fetch("http://localhost:1200/lamasocial/login", {
+    fetch("http://localhost:1200/lamasocial/password-reset", {
       method: "POST",
       headers: { "Content-type": "Application/json" },
       body: JSON.stringify(user),
@@ -38,10 +36,7 @@ export default function Login() {
         return res.json();
       })
       .then((data) => {
-        localStorage.setItem("token", data.token);
-        alert(data.msg);
-        // window.location.reload();
-        navigate("/");
+        alert(data);
       })
       .catch((err) => {
         alert(err);
@@ -62,16 +57,13 @@ export default function Login() {
         </div>
         <div className="loginRight">
           <form onSubmit={handleFormSubmit} className="loginBox">
+            <label htmlFor="">
+              Enter your valid email as registrated in lamasocial to get link
+            </label>
             <input
               ref={emailRef}
               type="email"
               placeholder=" Email... "
-              className="loginInput"
-            />
-            <input
-              ref={passwordRef}
-              type="password"
-              placeholder=" Password... "
               className="loginInput"
             />
             <button
@@ -80,11 +72,8 @@ export default function Login() {
               type="submit"
               className="loginButton"
             >
-              Log In
+              Get link
             </button>
-            <Link to={"/password-reset-link"} className="loginForgot">
-              Forgot password
-            </Link>
             <Link to={"/registration"} className="loginRegisterButton">
               Create a new account
             </Link>

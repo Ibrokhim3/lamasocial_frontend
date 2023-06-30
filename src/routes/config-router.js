@@ -1,9 +1,10 @@
-import Home from "../pages/home/home";
-import Login from "../components/login/login";
-import Register from "../components/register/register";
 import { useRoutes } from "react-router";
+import Login from "../components/login/login";
+import PassResetLink from "../components/pass-reset-link/pass-reset-link";
+import PassReset from "../components/pass-reset/pass-reset";
+import Register from "../components/register/register";
+import Home from "../pages/home/home";
 import Profile from "../pages/profile/profile";
-import { useEffect, useState } from "react";
 
 const token = localStorage.getItem("token");
 
@@ -19,6 +20,14 @@ const routes = [
   {
     path: "login",
     element: <Login />,
+  },
+  {
+    path: "password-reset-link",
+    element: <PassResetLink />,
+  },
+  {
+    path: "lamasocial/:userId/:token",
+    element: <PassReset />,
   },
   {
     path: "profile",

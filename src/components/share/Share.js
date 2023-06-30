@@ -6,10 +6,7 @@ import "./share.css";
 
 export default function Share({ profileImgUrl }) {
   const [postImg, setPostImg] = useState();
-  const [isDisabledInput, setIsDisabledInput] = useState(false);
-  const [isDisabledUpload, setIsDisabledUpload] = useState(true);
   const [btnActive, setBtnActive] = useState(false);
-  const [loading, setLoading] = useState(false);
 
   const styles = {
     opacity: btnActive ? 0.5 : 1,

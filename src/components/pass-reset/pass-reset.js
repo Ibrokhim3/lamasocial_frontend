@@ -1,9 +1,9 @@
+import { useRef, useState } from "react";
+import { useNavigate, useParams } from "react-router";
 import { Link } from "react-router-dom";
-import { useEffect, useRef, useState } from "react";
-import { useNavigate } from "react-router";
-import "./login.css";
+import "../login/login.css";
 
-export default function Login() {
+export default function PassReset() {
   const navigate = useNavigate();
 
   const [btnActive, setBtnActive] = useState(false);
@@ -12,25 +12,24 @@ export default function Login() {
     opacity: btnActive ? 0.7 : 1,
   };
 
-  const emailRef = useRef();
   const passwordRef = useRef();
+  const { userId, token } = useParams();
 
   const handleFormSubmit = (evt) => {
     evt.preventDefault();
     setBtnActive(true);
 
     const user = {
-      userEmail: emailRef.current.value,
       password: passwordRef.current.value,
     };
 
-    fetch("http://localhost:1200/lamasocial/login", {
-      method: "POST",
+    fetch(`http://localhost:1200/lamasocial/${userId}/${token}`, {
+      method: "PUT",
       headers: { "Content-type": "Application/json" },
       body: JSON.stringify(user),
     })
       .then((res) => {
-        if (res.status !== 201) {
+        if (res.status !== 200) {
           return res.text().then((text) => {
             throw new Error(text);
           });
@@ -38,10 +37,8 @@ export default function Login() {
         return res.json();
       })
       .then((data) => {
-        localStorage.setItem("token", data.token);
-        alert(data.msg);
-        // window.location.reload();
-        navigate("/");
+        alert(data);
+        navigate("/login");
       })
       .catch((err) => {
         alert(err);
@@ -62,12 +59,7 @@ export default function Login() {
         </div>
         <div className="loginRight">
           <form onSubmit={handleFormSubmit} className="loginBox">
-            <input
-              ref={emailRef}
-              type="email"
-              placeholder=" Email... "
-              className="loginInput"
-            />
+            <label htmlFor="">Enter your new password</label>
             <input
               ref={passwordRef}
               type="password"
@@ -80,11 +72,8 @@ export default function Login() {
               type="submit"
               className="loginButton"
             >
-              Log In
+              Change password
             </button>
-            <Link to={"/password-reset-link"} className="loginForgot">
-              Forgot password
-            </Link>
             <Link to={"/registration"} className="loginRegisterButton">
               Create a new account
             </Link>

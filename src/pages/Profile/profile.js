@@ -35,7 +35,7 @@ export default function Profile() {
         });
     };
     dataFetch();
-  }, []);
+  }, [posts]);
 
   useEffect(() => {
     const dataFetch = async () => {

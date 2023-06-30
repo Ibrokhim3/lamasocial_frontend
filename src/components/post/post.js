@@ -71,7 +71,6 @@ export default function Post({
           </div>
           <div className="postTopRight">
             <MoreVert />
-            John Doe
           </div>
         </div>
         <div className="postCenter">
