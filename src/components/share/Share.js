@@ -1,5 +1,6 @@
 import { PermMedia, Label, Room, EmojiEmotions } from "@mui/icons-material";
 import { useRef, useState } from "react";
+import { Navigate, useNavigate } from "react-router";
 import profileImgDef from "../../assets/icons/avatar.svg";
 
 import "./share.css";
@@ -7,10 +8,13 @@ import "./share.css";
 export default function Share({ profileImgUrl }) {
   const [postImg, setPostImg] = useState();
   const [btnActive, setBtnActive] = useState(false);
+  const navigate = useNavigate();
 
   const styles = {
     opacity: btnActive ? 0.5 : 1,
   };
+
+  const token = window.localStorage.getItem("token");
 
   const handleFormSubmit = (evt) => {
     evt.preventDefault();
@@ -39,7 +43,11 @@ export default function Share({ profileImgUrl }) {
         alert(data);
       })
       .catch((err) => {
-        alert(err);
+        if (!token) {
+          alert("Please log in to your account first");
+          navigate("/login");
+        }
+        return alert(err);
       })
       .finally(() => setBtnActive(false));
     evt.target.value = null;

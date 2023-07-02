@@ -33,25 +33,26 @@ function Home() {
   }, []);
 
   useEffect(() => {
-    fetch("http://localhost:1200/lamasocial/online", {
-      method: "PUT",
-      headers: { "Content-type": "Application/json", token },
-      body: JSON.stringify({ isOnline }),
-    })
-      .then((res) => {
-        if (res.status !== 201) {
-          return res.text().then((text) => {
-            throw new Error(text);
-          });
-        }
-        return res.json();
+    token &&
+      fetch("http://localhost:1200/lamasocial/online", {
+        method: "PUT",
+        headers: { "Content-type": "Application/json", token },
+        body: JSON.stringify({ isOnline }),
       })
-      .then((data) => {
-        // console.log(data);
-      })
-      .catch((err) => {
-        // return alert(err);
-      });
+        .then((res) => {
+          if (res.status !== 201) {
+            return res.text().then((text) => {
+              throw new Error(text);
+            });
+          }
+          return res.json();
+        })
+        .then((data) => {
+          // console.log(data);
+        })
+        .catch((err) => {
+          // return alert(err);
+        });
   }, [isOnline]);
 
   useEffect(() => {
@@ -104,7 +105,7 @@ function Home() {
           return alert(err);
         });
     };
-    dataFetch();
+    token && dataFetch();
   }, []);
 
   // const profileImgUrl = posts?.posts?.map((item) => item.profile_img_url);

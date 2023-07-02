@@ -37,7 +37,7 @@ function SideBar() {
           }
         })
         .catch((err) => {
-          return console.log(err);
+          // return console.log(err);
         });
     };
     dataFetch();

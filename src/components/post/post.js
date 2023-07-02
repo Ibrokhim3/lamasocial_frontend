@@ -51,7 +51,7 @@ export default function Post({
         // console.log(data);
       })
       .catch((err) => {
-        return console.log(err);
+        !token ? alert("Please login to your account first") : alert(err);
       });
   };
 

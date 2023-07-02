@@ -31,7 +31,7 @@ export default function Profile() {
           }
         })
         .catch((err) => {
-          return console.log(err);
+          // return console.log(err);
         });
     };
     dataFetch();
@@ -55,7 +55,7 @@ export default function Profile() {
           }
         })
         .catch((err) => {
-          return console.log(err);
+          // return console.log(err);
         });
     };
     dataFetch();

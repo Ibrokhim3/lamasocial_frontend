@@ -236,16 +236,29 @@ function TopBar({ profileImgUrl, profile }) {
               Update User
             </button>
           )}
-          <button
-            onClick={() => {
-              localStorage.clear();
-              navigate("/login");
-            }}
-            className="logout"
-          >
-            Log out
-          </button>
-          <Link to={"/profile"}>
+          {token ? (
+            <button
+              onClick={() => {
+                localStorage.clear();
+                navigate("/login");
+              }}
+              className="logout"
+            >
+              Log out
+            </button>
+          ) : (
+            <button
+              onClick={() => {
+                localStorage.clear();
+                navigate("/login");
+              }}
+              className="logout"
+            >
+              Log in
+            </button>
+          )}
+
+          <Link to={token ? "/profile" : "/login"}>
             <img
               src={profileImgUrl || profileImgDef}
               alt="smt"
