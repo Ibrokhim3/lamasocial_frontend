@@ -3,6 +3,7 @@ import { Search, Person, Chat, Notifications } from "@mui/icons-material";
 import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
 import profileImgDef from "../../assets/icons/avatar.svg";
+import { API_URL } from "../../variables/apiUrl";
 
 function TopBar({ profileImgUrl, profile }) {
   const [profileImg, setProfileImg] = useState();
@@ -25,7 +26,7 @@ function TopBar({ profileImgUrl, profile }) {
 
   useEffect(() => {
     const dataFetch = async () => {
-      await fetch("http://localhost:1200/lamasocial/user-info", {
+      await fetch(`${API_URL}lamasocial/user-info`, {
         method: "GET",
         headers: { token },
       })
@@ -67,7 +68,7 @@ function TopBar({ profileImgUrl, profile }) {
     //   cover_url: coverUrl,
     // };
 
-    fetch("http://localhost:1200/lamasocial/update-user", {
+    fetch(`${API_URL}lamasocial/update-user`, {
       method: "PUT",
       headers: { token },
       body: formData,

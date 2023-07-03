@@ -6,6 +6,7 @@ import TopBar from "../../components/top-bar/top-bar";
 import { useEffect, useState } from "react";
 import orangeColor from "../../assets/img/orange.webp";
 import profileImageDef from "../../assets/icons/avatar.svg";
+import { API_URL } from "../../variables/apiUrl";
 
 export default function Profile() {
   const [posts, setPosts] = useState();
@@ -15,7 +16,7 @@ export default function Profile() {
 
   useEffect(() => {
     const dataFetch = async () => {
-      await fetch("http://localhost:1200/lamasocial/user-posts", {
+      await fetch(`${API_URL}lamasocial/user-posts`, {
         method: "GET",
         headers: { token },
       })
@@ -39,7 +40,7 @@ export default function Profile() {
 
   useEffect(() => {
     const dataFetch = async () => {
-      await fetch("http://localhost:1200/lamasocial/user-info", {
+      await fetch(`${API_URL}lamasocial/user-info`, {
         method: "GET",
         headers: { token },
       })

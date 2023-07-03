@@ -4,6 +4,7 @@ import { Users } from "../../data/data";
 import "./post.css";
 import moment from "moment";
 import profileImgDef from "../../assets/icons/avatar.svg";
+import { API_URL } from "../../variables/apiUrl";
 
 export default function Post({
   post: {
@@ -36,7 +37,7 @@ export default function Post({
       post_id: likeRef.current.dataset.id,
     };
 
-    fetch("http://localhost:1200/lamasocial/likes", {
+    fetch(`${API_URL}lamasocial/likes`, {
       method: "POST",
       headers: { "Content-type": "Application/json", token },
       body: JSON.stringify(likeInfo),

@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router";
 import "./login.css";
+import { API_URL } from "../../variables/apiUrl";
 
 export default function Login() {
   const navigate = useNavigate();
@@ -24,7 +25,7 @@ export default function Login() {
       password: passwordRef.current.value,
     };
 
-    fetch("http://localhost:1200/lamasocial/login", {
+    fetch(`${API_URL}lamasocial/login`, {
       method: "POST",
       headers: { "Content-type": "Application/json" },
       body: JSON.stringify(user),

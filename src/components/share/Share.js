@@ -2,6 +2,7 @@ import { PermMedia, Label, Room, EmojiEmotions } from "@mui/icons-material";
 import { useRef, useState } from "react";
 import { Navigate, useNavigate } from "react-router";
 import profileImgDef from "../../assets/icons/avatar.svg";
+import { API_URL } from "../../variables/apiUrl";
 
 import "./share.css";
 
@@ -26,7 +27,7 @@ export default function Share({ profileImgUrl }) {
     formData.append("postText", postText);
     formData.append("postImg", postImg);
 
-    fetch("http://localhost:1200/lamasocial/create-post", {
+    fetch(`${API_URL}lamasocial/create-post`, {
       method: "POST",
       body: formData,
       headers: { token: localStorage.getItem("token") },

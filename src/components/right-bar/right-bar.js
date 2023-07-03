@@ -3,6 +3,7 @@ import { Users } from "../../data/data";
 import Online from "../online/online";
 import { useEffect, useState } from "react";
 import CloseFriend from "../close-friends/close-friends";
+import { API_URL } from "../../variables/apiUrl";
 
 function RightBar({ profile }) {
   const [friends, setFriends] = useState();
@@ -11,7 +12,7 @@ function RightBar({ profile }) {
 
   useEffect(() => {
     const dataFetch = async () => {
-      await fetch("http://localhost:1200/lamasocial/friends", {
+      await fetch(`${API_URL}lamasocial/friends`, {
         method: "GET",
         headers: { token },
       })

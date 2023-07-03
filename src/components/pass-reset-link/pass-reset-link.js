@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router";
 import "../login/login.css";
+import { API_URL } from "../../variables/apiUrl";
 
 export default function PassResetLink() {
   const navigate = useNavigate();
@@ -22,7 +23,7 @@ export default function PassResetLink() {
       userEmail: emailRef.current.value,
     };
 
-    fetch("http://localhost:1200/lamasocial/password-reset", {
+    fetch(`${API_URL}lamasocial/password-reset`, {
       method: "POST",
       headers: { "Content-type": "Application/json" },
       body: JSON.stringify(user),

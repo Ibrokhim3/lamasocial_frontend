@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { useRef, useState } from "react";
 import "./register.css";
 import { PermMedia } from "@mui/icons-material";
+import { API_URL } from "../../variables/apiUrl";
 
 export default function Register() {
   const [profileImg, setProfileImg] = useState();
@@ -45,7 +46,7 @@ export default function Register() {
     formData.append("profileImg", profileImg);
     formData.append("coverImg", coverImg);
 
-    fetch("http://localhost:1200/lamasocial/registration", {
+    fetch(`${API_URL}lamasocial/registration`, {
       method: "POST",
       body: formData,
     })

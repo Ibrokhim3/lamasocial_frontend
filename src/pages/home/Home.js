@@ -4,6 +4,7 @@ import RightBar from "../../components/right-bar/right-bar";
 import Share from "../../components/share/share";
 import SideBar from "../../components/sidebar/sidebar";
 import TopBar from "../../components/top-bar/top-bar";
+import { API_URL } from "../../variables/apiUrl";
 import "./home.css";
 
 function Home() {
@@ -34,7 +35,7 @@ function Home() {
 
   useEffect(() => {
     token &&
-      fetch("http://localhost:1200/lamasocial/online", {
+      fetch(`${API_URL}lamasocial/online`, {
         method: "PUT",
         headers: { "Content-type": "Application/json", token },
         body: JSON.stringify({ isOnline }),
@@ -57,7 +58,7 @@ function Home() {
 
   useEffect(() => {
     const dataFetch = async () => {
-      await fetch("http://localhost:1200/lamasocial/posts", {
+      await fetch(`${API_URL}lamasocial/posts`, {
         method: "GET",
         headers: { token },
       })
@@ -84,7 +85,7 @@ function Home() {
 
   useEffect(() => {
     const dataFetch = async () => {
-      await fetch("http://localhost:1200/lamasocial/user-info", {
+      await fetch(`${API_URL}lamasocial/user-info`, {
         method: "GET",
         headers: { token },
       })

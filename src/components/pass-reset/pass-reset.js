@@ -1,6 +1,7 @@
 import { useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router";
 import { Link } from "react-router-dom";
+import { API_URL } from "../../variables/apiUrl";
 import "../login/login.css";
 
 export default function PassReset() {
@@ -23,7 +24,7 @@ export default function PassReset() {
       password: passwordRef.current.value,
     };
 
-    fetch(`http://localhost:1200/lamasocial/${userId}/${token}`, {
+    fetch(`${API_URL}lamasocial/${userId}/${token}`, {
       method: "PUT",
       headers: { "Content-type": "Application/json" },
       body: JSON.stringify(user),

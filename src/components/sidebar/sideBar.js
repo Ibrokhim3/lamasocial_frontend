@@ -13,6 +13,7 @@ import {
 import { Users } from "../../data/data";
 import CloseFriend from "../close-friends/close-friends";
 import { useEffect, useState } from "react";
+import { API_URL } from "../../variables/apiUrl";
 
 function SideBar() {
   const [friends, setFriends] = useState();
@@ -21,7 +22,7 @@ function SideBar() {
 
   useEffect(() => {
     const dataFetch = async () => {
-      await fetch("http://localhost:1200/lamasocial/friends", {
+      await fetch(`${API_URL}lamasocial/friends`, {
         method: "GET",
         headers: { token },
       })
