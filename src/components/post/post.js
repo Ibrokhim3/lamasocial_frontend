@@ -99,7 +99,7 @@ export default function Post({
             <span className="postLikeCounter">{likes} people liked it</span>
           </div>
           <div className="postBottomRight">
-            <span className="postCommentText">{""} comments</span>
+            <span className="postCommentText">comments</span>
           </div>
         </div>
       </div>
