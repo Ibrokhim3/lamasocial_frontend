@@ -1,6 +1,6 @@
 import "./right-bar.css";
 import { Users } from "../../data/data";
-import Online from "../online/online";
+import Online from "../online/Online";
 import { useEffect, useState } from "react";
 import CloseFriend from "../close-friends/close-friends";
 import { API_URL } from "../../variables/apiUrl";

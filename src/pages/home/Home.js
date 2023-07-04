@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import Feed from "../../components/feed/feed";
+import Feed from "../../components/Feed/Feed";
 import RightBar from "../../components/right-bar/right-bar";
-import Share from "../../components/share/share";
-import SideBar from "../../components/sidebar/sidebar";
+import Share from "../../components/share/Share";
+import SideBar from "../../components/sidebar/sideBar";
 import TopBar from "../../components/top-bar/top-bar";
 import { API_URL } from "../../variables/apiUrl";
 import "./home.css";

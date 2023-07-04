@@ -1,5 +1,5 @@
-import "./feed.css";
-import Share from "../share/share";
+import "./Feed.css";
+import Share from "../share/Share";
 import Post from "../post/post";
 import { useEffect } from "react";
 import { useState } from "react";

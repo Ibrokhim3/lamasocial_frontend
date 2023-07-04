@@ -3,8 +3,8 @@ import Login from "../components/login/login";
 import PassResetLink from "../components/pass-reset-link/pass-reset-link";
 import PassReset from "../components/pass-reset/pass-reset";
 import Register from "../components/register/register";
-import Home from "../pages/home/home";
-import Profile from "../pages/profile/profile";
+import Home from "../pages/home/Home";
+import Profile from "../pages/Profile/profile";
 
 const routes = [
   {

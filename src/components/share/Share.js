@@ -4,7 +4,7 @@ import { Navigate, useNavigate } from "react-router";
 import profileImgDef from "../../assets/icons/avatar.svg";
 import { API_URL } from "../../variables/apiUrl";
 
-import "./share.css";
+import "./Share.css";
 
 export default function Share({ profileImgUrl }) {
   const [postImg, setPostImg] = useState();

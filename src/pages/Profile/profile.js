@@ -1,7 +1,7 @@
 import "./profile.css";
-import Feed from "../../components/feed/feed";
+import Feed from "../../components/Feed/Feed";
 import RightBar from "../../components/right-bar/right-bar";
-import SideBar from "../../components/sidebar/sidebar";
+import SideBar from "../../components/sidebar/sideBar";
 import TopBar from "../../components/top-bar/top-bar";
 import { useEffect, useState } from "react";
 import orangeColor from "../../assets/img/orange.webp";
