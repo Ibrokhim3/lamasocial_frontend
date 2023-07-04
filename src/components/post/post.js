@@ -43,10 +43,12 @@ export default function Post({
       body: JSON.stringify(likeInfo),
     })
       .then((res) => {
-        if (res.status === 201) {
-          return res.json();
+        if (res.status !== 201) {
+          return res.text().then((text) => {
+            throw new Error(text);
+          });
         }
-        return Promise.reject(res);
+        return res.json();
       })
       .then((data) => {
         // console.log(data);
